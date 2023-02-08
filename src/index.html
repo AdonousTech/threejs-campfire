@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Shader Materials</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <link href="./main.css" rel="stylesheet" type="text/css">
+</head>
+  <body>
+    <h1>Shader Materials and Particle Effects</h1>
+
+    <div id="scene-container">
+      <!-- Our <canvas> will be inserted here -->
+    </div>
+    <script type="module" src="./main.js"></script>
+    <script id="rainbowShader" type="x-shader/x-fragment">
+
+      uniform float time;
+      
+      void main() {
+        vec2 uv = gl_FragCoord.xy / vec2(1024.0, 768.0);
+        vec3 color = vec3(sin(uv.x + time), sin(uv.y + time), sin(uv.x + uv.y + time));
+        gl_FragColor = vec4(color, 1.0);
+      }
+      
+      </script>
+  </body>
+</html>
