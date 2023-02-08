@@ -1,7 +1,7 @@
 import { MathUtils } from 'three';
 import { World } from './World/World.js';
 import { RainbowMaterial } from './World/systems/materials/RainbowMaterial.js';
-import { MaterialSphere } from './World/systems/materials/MaterialSpehere.js';
+import { MaterialSphere } from './World/systems/materials/MaterialSphere.js';
 
 let camera;
 let controls;

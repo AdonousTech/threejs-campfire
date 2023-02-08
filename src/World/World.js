@@ -6,7 +6,7 @@ import { Resizer } from "./systems/Resizer";
 import { WorldScene } from "./components/Scene";
 import { Landscape } from "./components/Landscape";
 import { Controls } from "./components/Controls";
-import { MaterialSphere } from "./systems/materials/MaterialSpehere";
+import { MaterialSphere } from "./systems/materials/MaterialSphere";
  
 export class World {
 
