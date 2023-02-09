@@ -10,7 +10,7 @@ export class WorldScene extends Scene {
         this.background = new Color( 0x111111 );
 
         // Add exponential fog to the scene
-        this.farFogExp2 = new FogExp2(0xffffff, 0.005)
+        this.farFogExp2 = new FogExp2(0xffffff, 0.003)
         console.log(`Constructed WorldScene ${this}`);
 
         this.fog = this.farFogExp2

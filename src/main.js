@@ -1,14 +1,22 @@
 import { World } from './World/World.js';
 import { RainbowMaterial } from './World/systems/materials/RainbowMaterial.js';
 import { FireGlowMaterial } from './World/systems/materials/FireGlowMaterial.js';
+import { Fireballs } from './World/components/FireBalls.js';
 
 let camera;
 let controls;
+let fireballs;
+let lights;
 let materialSphere;
 let particleGeometry;
 let PC;
 let renderer;
 let scene;
+
+//Time
+let lastTime = 0;
+const time = performance.now();
+const delta = (time - lastTime) * 0.001;
 
 async function main() {
   // Get a reference to the container element
@@ -23,6 +31,8 @@ async function main() {
   // Cache components
   camera = world.getCamera();
   controls = world.getControls();
+  fireballs = world.getFireball();
+  lights = world.getLights();
   materialSphere = world.getMaterialSphere();
   particleGeometry = world.getParticleGeometry();
   PC = world.getPC();
@@ -41,7 +51,7 @@ function animate() {
   requestAnimationFrame( animate );
   
   controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
-
+  
     // material uniforms
     const rainbowUniforms = RainbowMaterial.uniforms;
     const fireglowUniforms = FireGlowMaterial.uniforms;
@@ -49,9 +59,19 @@ function animate() {
     rainbowUniforms ? rainbowUniforms.time.value += 0.01 : void 0;
     fireglowUniforms ? fireglowUniforms.time.value += 0.03 : void 0;
 
-  // Update the position of the material sphere
-  //materialSphere.update();
-  runParticleSystem();
+    // lights
+    lights.updateLights(time * 0.001);
+
+    // fireballs
+    console.log('fireballs :: ', fireballs);
+    fireballs.updateMaterials();
+    fireballs.updateFireballs(delta);
+
+    // update last time
+    lastTime = time;
+
+    // Run particle systems
+    runParticleSystem();
 
   // draw the scene
   renderer.render(scene, camera);

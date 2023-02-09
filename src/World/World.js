@@ -18,7 +18,7 @@ export class World {
     scene;
     camera;
     controls;
-    fireballs;
+    fireball;
     ground;
     landscape;
     lights;
@@ -38,7 +38,8 @@ export class World {
         this.camera.updateMatrixWorld();
         
         // Add lights
-        this.lights = new Lights().createLights().forEach(light => {
+        this.lights = new Lights()
+        this.lights.createLights().forEach(light => {
             this.scene.add(light);
         });
 
@@ -54,8 +55,9 @@ export class World {
         //this.scene.add(this.materialSphere);
 
         // Fireballs
-        this.fireballs = new Fireballs().createFireballs();
-        this.fireballs.forEach(fireball => {
+        this.fireball = new Fireballs().createFireball();
+        console.log('this.fireball :: ', this.fireball);
+        this.fireball.getBalls().forEach(fireball => {
             this.scene.add(fireball);
         });
 
@@ -84,6 +86,14 @@ export class World {
 
     getControls() {
         return this.controls;
+    }
+
+    getFireball() {
+        return this.fireball;
+    }
+
+    getLights() {
+        return this.lights;
     }
 
     getScene() {
