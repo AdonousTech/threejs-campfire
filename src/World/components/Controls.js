@@ -9,7 +9,10 @@ export class Controls extends OrbitControls {
         this.screenSpacePanning = false;
         this.minDistance = 100;
         this.maxDistance = 500;
+        this.enabled = true;
 
+        // Set the minimum and maximum polar angle to restrict rotation to the x-axis
+        this.minPolarAngle = Math.PI / 2;
         this.maxPolarAngle = Math.PI / 2;
     }
 

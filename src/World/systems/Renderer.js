@@ -8,6 +8,7 @@ export class Renderer extends WebGLRenderer {
         this.setPixelRatio( window.devicePixelRatio );
         this.setSize( window.innerWidth, window.innerHeight );
         this.physicallyCorrectLights = true;
+        this.setClearColor(0x111111);
     }
 
     createRenderer() {

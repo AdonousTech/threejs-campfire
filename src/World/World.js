@@ -6,16 +6,23 @@ import { Resizer } from "./systems/Resizer";
 import { WorldScene } from "./components/Scene";
 import { Landscape } from "./components/Landscape";
 import { Controls } from "./components/Controls";
-import { MaterialSphere } from "./systems/materials/MaterialSphere";
+import { Fireballs } from "./components/FireBalls";
+import { BasicParticleGeometry } from "./systems/particles/BasicParticleGeometry";
+import { Ground } from "./components/Ground";
+
+// Props
+import { loadFirelog } from "./models/Firelog";
  
 export class World {
 
     scene;
     camera;
     controls;
+    fireballs;
+    ground;
     landscape;
     lights;
-    //PC;
+    particleGeometry;
     renderer;
     resizer;
 
@@ -38,12 +45,37 @@ export class World {
         // Add Camera controls
         this.controls = new Controls(this.camera, this.renderer.domElement).createControls();
 
+        // Ground
+        this.ground = new Ground().createGround();
+        //this.scene.add(this.ground);
+        
         // Add the Material Sphere
-        this.materialSphere = new MaterialSphere(this.scene).create();
-        this.scene.add(this.materialSphere);
+        //this.materialSphere = new MaterialSphere(this.scene).create();
+        //this.scene.add(this.materialSphere);
+
+        // Fireballs
+        this.fireballs = new Fireballs().createFireballs();
+        this.fireballs.forEach(fireball => {
+            this.scene.add(fireball);
+        });
+
+
+        // Particles
+        this.particleGeometry = new BasicParticleGeometry(this.scene).createParticles();
+        this.scene.add(this.particleGeometry);
+        
 
         // Activate Resizer
         this.resizer = new Resizer(container, this.camera, this.renderer);
+    }
+
+    async init() {
+        const firelog1 = await loadFirelog();
+        console.log('returned firelog1 :: ', firelog1);
+        //this.controls.target.copy(firelog1.position)
+        firelog1.scale.set( 5, 5, 5 );
+        this.scene.add(firelog1);
+        console.log('this.scene :: ', this.scene);
     }
 
     getCamera() {
@@ -68,6 +100,11 @@ export class World {
 
     getMaterialSphere() {
         return this.materialSphere;
+    }
+
+    getParticleGeometry() {
+        console.log('this.particleGeometry;', this.particleGeometry)
+        return this.particleGeometry;
     }
 
     render() {
