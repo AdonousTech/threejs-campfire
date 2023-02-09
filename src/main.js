@@ -55,9 +55,11 @@ function animate() {
     // material uniforms
     const rainbowUniforms = RainbowMaterial.uniforms;
     const fireglowUniforms = FireGlowMaterial.uniforms;
+    const smokeUniforms = FireGlowMaterial.uniforms;
 
     rainbowUniforms ? rainbowUniforms.time.value += 0.01 : void 0;
     fireglowUniforms ? fireglowUniforms.time.value += 0.03 : void 0;
+    smokeUniforms ? smokeUniforms.time.value = time : void 0;
 
     // lights
     lights.updateLights(time * 0.001);

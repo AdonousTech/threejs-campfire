@@ -12,6 +12,7 @@ import { Ground } from "./components/Ground";
 
 // Props
 import { loadFirelog } from "./models/Firelog";
+import { Smoke } from "./components/Smoke";
  
 export class World {
 
@@ -25,6 +26,7 @@ export class World {
     particleGeometry;
     renderer;
     resizer;
+    smoke;
 
     constructor(container) {
         this.camera = new Camera().createCamera();
@@ -60,6 +62,10 @@ export class World {
         this.fireball.getBalls().forEach(fireball => {
             this.scene.add(fireball);
         });
+
+        // Smoke
+        this.smoke = new Smoke().createSmoke();
+        this.scene.add(this.smoke);
 
 
         // Particles
