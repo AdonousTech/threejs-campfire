@@ -20,6 +20,12 @@ body {
     /* make sure that the heading is drawn on top */
     z-index: 1;
   }
+
+  h1 > .instructionalText {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: small;
+    color: wheat;
+  }
   
   #scene-container {
     /* tell our scene container to take up the full page */

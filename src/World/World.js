@@ -9,7 +9,7 @@ import { Controls } from "./components/Controls";
 import { Fireballs } from "./components/FireBalls";
 import { BasicParticleGeometry } from "./systems/particles/BasicParticleGeometry";
 import { SmokeSystem } from "./systems/particles/SmokeParticles";
-import { Ground } from "./components/Ground";
+import { Sound } from "./components/Sound";
 
 // Props
 import { loadFirelog } from "./models/Firelog";
@@ -18,26 +18,32 @@ export class World {
 
     scene;
     camera;
+    campfire;
     controls;
     fireball;
-    ground;
-    landscape;
+    fireCrackleSound; 
     lights;
     particleGeometry;
     renderer;
     resizer;
     smokeSystem;
+    sound;
 
     constructor(container) {
         this.camera = new Camera().createCamera();
         this.scene = new WorldScene().createScene();
         this.renderer = new Renderer().createRenderer();
         
+        // Sounds preloaded
+        this.fireCrackleSound = new Sound('campfire').createSound();
+        
         container.append(this.renderer.domElement);
+        container.addEventListener('click', () => {
+            console.log('clicked :: ');
+            this.fireCrackleSound.audioElement.play();
+        });
 
         // Create components
-        // Update the camera matrix with latest data before constructing PC
-        this.camera.updateMatrixWorld();
         
         // Add lights
         this.lights = new Lights()
@@ -47,7 +53,6 @@ export class World {
 
         // Add Camera controls
         this.controls = new Controls(this.camera, this.renderer.domElement).createControls();
-
 
         // Fireballs
         this.fireball = new Fireballs().createFireball();
@@ -72,14 +77,12 @@ export class World {
     }
 
     async init() {
-        const firelog1 = await loadFirelog();
-        //console.log('returned firelog1 :: ', firelog1);
-        //this.controls.target.copy(firelog1.position)
-        firelog1.scale.set( 5, 5, 5 );
-        this.scene.add(firelog1);
+        this.campfire = await loadFirelog();
+        this.campfire.scale.set( 5, 5, 5 );
+        this.scene.add(this.campfire);
+        // Add sounds after all assets asynchronously loaded
         //console.log('this.scene :: ', this.scene);
     }
-
     addSmokeSystemParticles() {
         for (let i = 0; i < 200; i++) {
             this.smokeSystem.addParticle();

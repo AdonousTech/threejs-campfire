@@ -47,7 +47,6 @@ export class SmokeSystem {
 
     update() {
         for (let particle of this.particles) {
-            console.log(this.particles)
             particle.position.y += 0.1;
             particle.rotation.y += 0.01;
             particle.scale.x *= 1.01;
