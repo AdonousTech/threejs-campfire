@@ -8,11 +8,11 @@ import { Landscape } from "./components/Landscape";
 import { Controls } from "./components/Controls";
 import { Fireballs } from "./components/FireBalls";
 import { BasicParticleGeometry } from "./systems/particles/BasicParticleGeometry";
+import { SmokeSystem } from "./systems/particles/SmokeParticles";
 import { Ground } from "./components/Ground";
 
 // Props
 import { loadFirelog } from "./models/Firelog";
-import { Smoke } from "./components/Smoke";
  
 export class World {
 
@@ -26,7 +26,7 @@ export class World {
     particleGeometry;
     renderer;
     resizer;
-    smoke;
+    smokeSystem;
 
     constructor(container) {
         this.camera = new Camera().createCamera();
@@ -48,30 +48,24 @@ export class World {
         // Add Camera controls
         this.controls = new Controls(this.camera, this.renderer.domElement).createControls();
 
-        // Ground
-        this.ground = new Ground().createGround();
-        //this.scene.add(this.ground);
-        
-        // Add the Material Sphere
-        //this.materialSphere = new MaterialSphere(this.scene).create();
-        //this.scene.add(this.materialSphere);
 
         // Fireballs
         this.fireball = new Fireballs().createFireball();
-        console.log('this.fireball :: ', this.fireball);
+        //console.log('this.fireball :: ', this.fireball);
         this.fireball.getBalls().forEach(fireball => {
             this.scene.add(fireball);
         });
-
-        // Smoke
-        this.smoke = new Smoke().createSmoke();
-        this.scene.add(this.smoke);
 
 
         // Particles
         this.particleGeometry = new BasicParticleGeometry(this.scene).createParticles();
         this.scene.add(this.particleGeometry);
-        
+
+        // Smoke Particles
+        this.smokeSystem = new SmokeSystem().createParticles();
+        this.addSmokeSystemParticles();
+        this.scene.add(this.smokeSystem.group);
+        console.log('scene after smoke :: ', this.scene);
 
         // Activate Resizer
         this.resizer = new Resizer(container, this.camera, this.renderer);
@@ -79,11 +73,21 @@ export class World {
 
     async init() {
         const firelog1 = await loadFirelog();
-        console.log('returned firelog1 :: ', firelog1);
+        //console.log('returned firelog1 :: ', firelog1);
         //this.controls.target.copy(firelog1.position)
         firelog1.scale.set( 5, 5, 5 );
         this.scene.add(firelog1);
-        console.log('this.scene :: ', this.scene);
+        //console.log('this.scene :: ', this.scene);
+    }
+
+    addSmokeSystemParticles() {
+        for (let i = 0; i < 200; i++) {
+            this.smokeSystem.addParticle();
+        }
+    }
+
+    getSmokeSystem() {
+        return this.smokeSystem;
     }
 
     getCamera() {

@@ -12,7 +12,7 @@ export class BasicParticleGeometry extends Points {
     constructor() {
         super();
 
-        this.particleCount = 500;
+        this.particleCount = 200;
         this.particlePositions = new Float32Array( this.particleCount * 3 );
         this.particleSizes = new Float32Array( this.particleCount );
         this.particleVelocities = new Float32Array( this.particleCount );

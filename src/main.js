@@ -9,6 +9,7 @@ let fireballs;
 let lights;
 let materialSphere;
 let particleGeometry;
+let smokeSystem;
 let PC;
 let renderer;
 let scene;
@@ -38,6 +39,7 @@ async function main() {
   PC = world.getPC();
   renderer = world.getrenderer();
   scene = world.getScene();
+  smokeSystem = world.getSmokeSystem();
 
 
   // draw the scene
@@ -55,19 +57,19 @@ function animate() {
     // material uniforms
     const rainbowUniforms = RainbowMaterial.uniforms;
     const fireglowUniforms = FireGlowMaterial.uniforms;
-    const smokeUniforms = FireGlowMaterial.uniforms;
 
     rainbowUniforms ? rainbowUniforms.time.value += 0.01 : void 0;
     fireglowUniforms ? fireglowUniforms.time.value += 0.03 : void 0;
-    smokeUniforms ? smokeUniforms.time.value = time : void 0;
 
     // lights
     lights.updateLights(time * 0.001);
 
     // fireballs
-    console.log('fireballs :: ', fireballs);
     fireballs.updateMaterials();
     fireballs.updateFireballs(delta);
+
+    // smoke system
+    smokeSystem.update();
 
     // update last time
     lastTime = time;
@@ -76,6 +78,7 @@ function animate() {
     runParticleSystem();
 
   // draw the scene
+  renderer.clearDepth();
   renderer.render(scene, camera);
 
 }
