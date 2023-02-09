@@ -22,9 +22,9 @@ export class SmokeSystem {
     addParticle() {
         let particle = new Mesh(this.particleGeometry, this.particleMaterial);
         particle.position.set(
-            Math.random() * 20 - 10,
-            Math.random() * 20 - 10,
-            Math.random() * 20 - 10
+            Math.random() * 50 - 10,
+            Math.random() * 50 - 10,
+            Math.random() * 50 - 10
           );
         particle.rotation.set(
         Math.random() * 2 * Math.PI,
