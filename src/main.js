@@ -1,5 +1,4 @@
 import { World } from './World/World.js';
-import { RainbowMaterial } from './World/systems/materials/RainbowMaterial.js';
 import { FireGlowMaterial } from './World/systems/materials/FireGlowMaterial.js';
 
 let camera;
@@ -53,10 +52,7 @@ function animate() {
   controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
   
     // material uniforms
-    const rainbowUniforms = RainbowMaterial.uniforms;
     const fireglowUniforms = FireGlowMaterial.uniforms;
-
-    rainbowUniforms ? rainbowUniforms.time.value += 0.01 : void 0;
     fireglowUniforms ? fireglowUniforms.time.value += 0.03 : void 0;
 
     // lights
