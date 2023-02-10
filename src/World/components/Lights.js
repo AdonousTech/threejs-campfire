@@ -7,7 +7,7 @@ export class Lights {
     constructor() {
         this.lights = [];
 
-        const dirLight1 = new DirectionalLight( 0xffee88, 3 );
+        const dirLight1 = new DirectionalLight( 0xffee88, 6 );
         dirLight1.position.set( 15, 10, 5 );
         this.lights.push(dirLight1);
 

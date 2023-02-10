@@ -7,9 +7,10 @@ import { WorldScene } from "./components/Scene";
 import { Landscape } from "./components/Landscape";
 import { Controls } from "./components/Controls";
 import { Fireballs } from "./components/FireBalls";
-import { BasicParticleGeometry } from "./systems/particles/BasicParticleGeometry";
 import { SmokeSystem } from "./systems/particles/SmokeParticles";
 import { Sound } from "./components/Sound";
+import { BasicParticleGeometry } from "./systems/particles/BasicParticleGeometry";
+import { PostProcessingHub } from './components/PostProcessingHub';
 
 // Props
 import { loadFirelog } from "./models/Firelog";
@@ -24,6 +25,7 @@ export class World {
     fireCrackleSound; 
     lights;
     particleGeometry;
+    postProcessingHub;
     renderer;
     resizer;
     smokeSystem;
@@ -33,6 +35,7 @@ export class World {
         this.camera = new Camera().createCamera();
         this.scene = new WorldScene().createScene();
         this.renderer = new Renderer().createRenderer();
+        this.postProcessingHub = new PostProcessingHub(this.renderer, this.scene, this.camera);
         
         // Sounds preloaded
         this.fireCrackleSound = new Sound('campfire').createSound();
@@ -80,9 +83,8 @@ export class World {
         this.campfire = await loadFirelog();
         this.campfire.scale.set( 5, 5, 5 );
         this.scene.add(this.campfire);
-        // Add sounds after all assets asynchronously loaded
-        //console.log('this.scene :: ', this.scene);
     }
+
     addSmokeSystemParticles() {
         for (let i = 0; i < 200; i++) {
             this.smokeSystem.addParticle();
@@ -133,5 +135,6 @@ export class World {
     render() {
         // draw a single frame
         this.renderer.render(this.scene, this.camera);
+        this.postProcessingHub.render();
     }
 }
