@@ -1,4 +1,4 @@
-# ThreeJS Campfire by @adonoustech
+# ThreeJS Campfire by @adonoustechllc
 
 - Source code is MIT Licensed.
 - Sound assets are not sublicensed and may not be reused.
