@@ -31,7 +31,6 @@ async function main() {
   controls = world.getControls();
   fireballs = world.getFireball();
   lights = world.getLights();
-  materialSphere = world.getMaterialSphere();
   particleGeometry = world.getParticleGeometry();
   PC = world.getPC();
   renderer = world.getrenderer();
