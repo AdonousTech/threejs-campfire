@@ -1,6 +1,6 @@
 function setupModel(data) {
 
-    // Typically we will not have a camera in the children heirarchy
+    // This particular scene includes a camera which occupies the 0 ordinal index
     const model = data.scene.children[1];
   
     return model;

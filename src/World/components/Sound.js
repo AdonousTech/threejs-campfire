@@ -4,7 +4,6 @@ export class Sound {
     
     constructor(audioElementName) {
         this.audioElement = document.getElementById( audioElementName );
-        console.log('this.audioElement :: ', this.audioElement);
     }
 
     createSound() {

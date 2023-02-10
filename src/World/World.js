@@ -1,10 +1,8 @@
 import { Camera } from "./components/Camera";
 import { Lights } from "./components/Lights";
-import { PlayerCharacter } from "./components/PlayerCharacter";
 import { Renderer } from "./systems/Renderer";
 import { Resizer } from "./systems/Resizer";
 import { WorldScene } from "./components/Scene";
-import { Landscape } from "./components/Landscape";
 import { Controls } from "./components/Controls";
 import { Fireballs } from "./components/FireBalls";
 import { SmokeSystem } from "./systems/particles/SmokeParticles";
@@ -41,8 +39,9 @@ export class World {
         this.fireCrackleSound = new Sound('campfire').createSound();
         
         container.append(this.renderer.domElement);
+
+        // WebAudio requires initial user interaction before playing audio
         container.addEventListener('click', () => {
-            console.log('clicked :: ');
             this.fireCrackleSound.audioElement.play();
         });
 
@@ -59,7 +58,6 @@ export class World {
 
         // Fireballs
         this.fireball = new Fireballs().createFireball();
-        //console.log('this.fireball :: ', this.fireball);
         this.fireball.getBalls().forEach(fireball => {
             this.scene.add(fireball);
         });
@@ -85,6 +83,7 @@ export class World {
         this.scene.add(this.campfire);
     }
 
+    // Decrease number of smoke particles for performance boost
     addSmokeSystemParticles() {
         for (let i = 0; i < 200; i++) {
             this.smokeSystem.addParticle();
@@ -128,7 +127,6 @@ export class World {
     }
 
     getParticleGeometry() {
-        console.log('this.particleGeometry;', this.particleGeometry)
         return this.particleGeometry;
     }
 

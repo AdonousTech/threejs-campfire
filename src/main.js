@@ -1,13 +1,11 @@
 import { World } from './World/World.js';
 import { RainbowMaterial } from './World/systems/materials/RainbowMaterial.js';
 import { FireGlowMaterial } from './World/systems/materials/FireGlowMaterial.js';
-import { Fireballs } from './World/components/FireBalls.js';
 
 let camera;
 let controls;
 let fireballs;
 let lights;
-let materialSphere;
 let particleGeometry;
 let smokeSystem;
 let PC;
@@ -119,7 +117,6 @@ function runParticleSystem() {
     particleGeometry.particleSizes[ i ] = Math.random() * 0.09 + 0.01;
   }
   
-  //console.log('particleGeometry :: ', particleGeometry);
   particleGeometry.geometry.attributes.position.needsUpdate = true;
   particleGeometry.geometry.attributes.size.needsUpdate = true;
 }
